@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RaamaTech - Reliable MES Solutions for Modern Manufacturing. Custom MES development, integration with PLC, SCADA, ERP, and more.">
+    <meta name="keywords" content="MES, Manufacturing Execution System, Solumina MES, PLC, SCADA, ERP, manufacturing software, RaamaTech">
+    <title>RaamaTech | Reliable MES Solutions for Modern Manufacturing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#EFF6FF',
+                            100: '#DBEAFE',
+                            200: '#BFDBFE',
+                            300: '#93C5FD',
+                            400: '#60A5FA',
+                            500: '#3B82F6',
+                            600: '#2563EB',
+                            700: '#1D4ED8',
+                            800: '#1E40AF',
+                            900: '#1E3A8A',
+                            950: '#172554',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F0F9FF; }
+        ::-webkit-scrollbar-thumb { background: #93C5FD; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3B82F6; }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.03; }
+            50% { opacity: 0.08; }
+        }
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-fade-in-left { animation: fadeInLeft 0.8s ease-out forwards; }
+        .animate-fade-in-right { animation: fadeInRight 0.8s ease-out forwards; }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-slide-down { animation: slideDown 0.3s ease-out forwards; }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+
+        /* Scroll-triggered animation - elements start invisible */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Hero grid background */
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(59,130,246,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.07) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 4s ease-in-out infinite;
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #1D4ED8 0%, #0EA5E9 50%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Card glow on hover */
+        .card-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59,130,246,0.05), transparent);
+            transition: left 0.6s ease;
+        }
+        .card-glow:hover::before {
+            left: 100%;
+        }
+
+        /* Service card icon hover */
+        .service-icon {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 8px 25px -5px rgba(59,130,246,0.3);
+        }
+
+        /* Nav active indicator */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3B82F6, #0EA5E9);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* WhatsApp button pulse */
+        .whatsapp-pulse::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #25D366;
+            animation: pulse-ring 2s ease-out infinite;
+            z-index: -1;
+        }
+
+        /* Smooth section transitions */
+        section {
+            position: relative;
+        }
+
+        /* Form input focus glow */
+        .form-input:focus {
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+
+        /* Standout card number */
+        .standout-number {
+            background: linear-gradient(135deg, #1D4ED8, #0EA5E9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu-overlay {
+            backdrop-filter: blur(4px);
+        }
+
+        /* Marquee for clients */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            animation: marquee 30s linear infinite;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 font-inter overflow-x-hidden">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/80 backdrop-blur-xl border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#home" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-600 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 group-hover:shadow-brand-500/40 transition-shadow duration-300">
+                    <span class="iconify text-white text-lg" data-icon="mdi:factory"></span>
+                </div>
+                <span class="text-xl font-bold text-brand-900 tracking-tight">Raama<span class="text-brand-600">Tech</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#home" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-700 transition-colors duration-200 active">Home</a>
+                <a href="#about" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-700 transition-colors duration-200">About</a>
+                <a href="#services" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-700 transition-colors duration-200">Services</a>
+                <a href="#standout" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-700 transition-colors duration-200">Why Us</a>
+                <a href="#mission" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-700 transition-colors duration-200">Mission</a>
+                <a href="#contact" class="px-5 py-2 bg-gradient-to-r from-brand-700 to-brand-600 text-white text-sm font-medium rounded-lg hover:from-brand-600 hover:to-sky-600 transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5">
+                    Contact Us
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-brand-50 transition-colors" aria-label="Menu">
+                <span id="menuIcon" class="iconify text-2xl text-slate-700" data-icon="mdi:menu"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-t border-brand-100 mobile-menu-overlay">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+                <a href="#home" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition-all">Home</a>
+                <a href="#about" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition-all">About</a>
+                <a href="#services" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition-all">Services</a>
+                <a href="#standout" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition-all">Why Us</a>
+                <a href="#mission" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition-all">Mission</a>
+                <a href="#contact" class="mt-2 px-4 py-3 bg-gradient-to-r from-brand-700 to-brand-600 text-white text-sm font-medium rounded-lg text-center">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="home" class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 hero-grid"></div>
+        <div class="absolute top-20 right-0 w-[600px] h-[600px] bg-brand-400/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-400/10 rounded-full blur-[100px]"></div>
+
+        <!-- Floating geometric shapes -->
+        <div class="absolute top-32 left-[10%] w-16 h-16 border-2 border-brand-200/40 rounded-xl animate-float" style="animation-delay: 0s;"></div>
+        <div class="absolute top-48 right-[15%] w-10 h-10 bg-sky-100/60 rounded-lg animate-float" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-32 left-[20%] w-12 h-12 border-2 border-brand-300/30 rounded-full animate-float" style="animation-delay: 4s;"></div>
+        <div class="absolute bottom-48 right-[25%] w-8 h-8 bg-brand-100/50 rounded-md animate-float" style="animation-delay: 1s;"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-32 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left Content -->
+                <div class="max-w-xl">
+                    <div class="animate-fade-in-up opacity-0" style="animation-fill-mode: forwards;">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border border-brand-200 rounded-full mb-6">
+                            <span class="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
+                            <span class="text-xs font-medium text-brand-700 tracking-wide uppercase">MES Solutions Provider</span>
+                        </div>
+                    </div>
+
+                    <h1 class="animate-fade-in-up opacity-0 delay-100 text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.1] tracking-tight text-slate-900" style="animation-fill-mode: forwards;">
+                        Reliable MES Solutions for
+                        <span class="gradient-text"> Modern Manufacturing</span>
+                    </h1>
+
+                    <p class="animate-fade-in-up opacity-0 delay-200 mt-6 text-lg text-slate-500 leading-relaxed max-w-lg" style="animation-fill-mode: forwards;">
+                        We build, integrate, and optimize Manufacturing Execution Systems that give your production floor complete visibility, control, and efficiency.
+                    </p>
+
+                    <div class="animate-fade-in-up opacity-0 delay-300 mt-8 flex flex-wrap gap-4" style="animation-fill-mode: forwards;">
+                        <a href="#contact" class="group inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-brand-700 to-brand-600 text-white font-semibold rounded-xl hover:from-brand-600 hover:to-sky-600 transition-all duration-300 shadow-xl shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-1">
+                            Get Started
+                            <span class="iconify text-lg group-hover:translate-x-1 transition-transform" data-icon="mdi:arrow-right"></span>
+                        </a>
+                        <a href="#services" class="group inline-flex items-center gap-2 px-7 py-3.5 bg-white border-2 border-brand-200 text-brand-700 font-semibold rounded-xl hover:border-brand-400 hover:bg-brand-50 transition-all duration-300 hover:-translate-y-1">
+                            Our Services
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators -->
+                    <div class="animate-fade-in-up opacity-0 delay-400 mt-10 flex items-center gap-6 pt-8 border-t border-slate-100" style="animation-fill-mode: forwards;">
+                        <div>
+                            <div class="text-2xl font-bold text-brand-800">50+</div>
+                            <div class="text-xs text-slate-400 font-medium">MES Projects</div>
+                        </div>
+                        <div class="w-px h-10 bg-slate-200"></div>
+                        <div>
+                            <div class="text-2xl font-bold text-brand-800">99%</div>
+                            <div class="text-xs text-slate-400 font-medium">Client Satisfaction</div>
+                        </div>
+                        <div class="w-px h-10 bg-slate-200"></div>
+                        <div>
+                            <div class="text-2xl font-bold text-brand-800">24/7</div>
+                            <div class="text-xs text-slate-400 font-medium">Support</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual -->
+                <div class="animate-fade-in-right opacity-0 delay-300 hidden lg:block" style="animation-fill-mode: forwards;">
+                    <div class="relative">
+                        <!-- Main illustration card -->
+                        <div class="relative bg-gradient-to-br from-brand-50 to-sky-50 rounded-3xl p-8 border border-brand-100 shadow-2xl shadow-brand-500/10">
+                            <img src="https://picsum.photos/seed/mes-factory-dashboard/600/420.jpg" alt="MES Dashboard" class="w-full h-auto rounded-2xl shadow-lg object-cover">
+
+                            <!-- Floating mini cards -->
+                            <div class="absolute -top-4 -right-4 bg-white rounded-xl p-3 shadow-xl shadow-brand-500/10 border border-brand-100 animate-float" style="animation-delay: 1s;">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                                        <span class="iconify text-green-600" data-icon="mdi:check-circle"></span>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-800">Production</div>
+                                        <div class="text-[10px] text-green-600 font-medium">On Track</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="absolute -bottom-4 -left-4 bg-white rounded-xl p-3 shadow-xl shadow-brand-500/10 border border-brand-100 animate-float" style="animation-delay: 3s;">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-lg bg-brand-100 flex items-center justify-center">
+                                        <span class="iconify text-brand-600" data-icon="mdi:chart-line"></span>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-800">Efficiency</div>
+                                        <div class="text-[10px] text-brand-600 font-medium">+34.5%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 rounded-full border-2 border-brand-300 flex justify-center pt-2">
+                <div class="w-1.5 h-3 bg-brand-400 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== KEY SERVICES HIGHLIGHT BAR ==================== -->
+    <section class="relative bg-gradient-to-r from-brand-900 via-brand-800 to-brand-900 py-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="hero-grid h-full"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14">
+                <div class="flex items-center gap-2.5 text-white/80">
+                    <span class="iconify text-sky-400 text-xl" data-icon="mdi:cog-transfer"></span>
+                    <span class="text-sm font-medium">Solumina MES</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-white/80">
+                    <span class="iconify text-sky-400 text-xl" data-icon="mdi:chip"></span>
+                    <span class="text-sm font-medium">PLC Integration</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-white/80">
+                    <span class="iconify text-sky-400 text-xl" data-icon="mdi:monitor-dashboard"></span>
+                    <span class="text-sm font-medium">SCADA Systems</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-white/80">
+                    <span class="iconify text-sky-400 text-xl" data-icon="mdi:database-sync"></span>
+                    <span class="text-sm font-medium">ERP Integration</span>
+                </div>
+                <div class="flex items-center gap-2.5 text-white/80">
+                    <span class="iconify text-sky-400 text-xl" data-icon="mdi:shield-check"></span>
+                    <span class="text-sm font-medium">Quality Management</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT US ==================== -->
+    <section id="about" class="relative py-24 md:py-32 bg-white overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-50 rounded-full blur-[100px] opacity-50"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left Image Area -->
+                <div class="reveal-left">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-brand-100 to-sky-50 rounded-3xl p-3">
+                            <img src="https://picsum.photos/seed/engineering-team-mes/600/480.jpg" alt="RaamaTech Team" class="w-full h-auto rounded-2xl object-cover shadow-lg">
+                        </div>
+                        <!-- Experience badge -->
+                        <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl p-5 shadow-xl shadow-brand-500/10 border border-brand-100">
+                            <div class="text-center">
+                                <div class="text-3xl font-extrabold gradient-text">10+</div>
+                                <div class="text-xs text-slate-500 font-medium mt-1">Years of MES<br>Expertise</div>
+                            </div>
+                        </div>
+                        <!-- Decorative -->
+                        <div class="absolute -top-6 -left-6 w-20 h-20 border-2 border-brand-200/50 rounded-2xl"></div>
+                    </div>
+                </div>
+
+                <!-- Right Content -->
+                <div class="reveal-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border border-brand-200 rounded-full mb-5">
+                        <span class="iconify text-brand-600 text-sm" data-icon="mdi:account-group"></span>
+                        <span class="text-xs font-medium text-brand-700 tracking-wide uppercase">About Us</span>
+                    </div>
+
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+                        A Mighty Team of
+                        <span class="gradient-text"> Software Engineers</span>
+                    </h2>
+
+                    <div class="mt-6 space-y-4 text-slate-500 leading-relaxed">
+                        <p>
+                            We are a mighty team of software engineers, focused on building reliable and flexible MES solutions for manufacturing companies. Our team combines software engineering expertise with real-world manufacturing knowledge.
+                        </p>
+                        <p>
+                            We work closely with our clients to understand their processes and deliver solutions that fit their operations.
+                        </p>
+                        <p>
+                            We specialize in custom MES development and integration. Our services cover the full lifecycle of MES implementation, from design to deployment and long-term support. We support both small and large manufacturing environments, helping teams adopt MES solutions that scale with their business.
+                        </p>
+                    </div>
+
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3 p-3 rounded-xl bg-brand-50/50">
+                            <span class="iconify text-brand-600 text-xl mt-0.5" data-icon="mdi:code-braces"></span>
+                            <div>
+                                <div class="text-sm font-semibold text-slate-800">Custom Development</div>
+                                <div class="text-xs text-slate-400 mt-0.5">Tailored to your needs</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 rounded-xl bg-brand-50/50">
+                            <span class="iconify text-brand-600 text-xl mt-0.5" data-icon="mdi:handshake"></span>
+                            <div>
+                                <div class="text-sm font-semibold text-slate-800">Client Partnership</div>
+                                <div class="text-xs text-slate-400 mt-0.5">Collaborative approach</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 rounded-xl bg-brand-50/50">
+                            <span class="iconify text-brand-600 text-xl mt-0.5" data-icon="mdi:lifebuoy"></span>
+                            <div>
+                                <div class="text-sm font-semibold text-slate-800">Long-term Support</div>
+                                <div class="text-xs text-slate-400 mt-0.5">End-to-end lifecycle</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 rounded-xl bg-brand-50/50">
+                            <span class="iconify text-brand-600 text-xl mt-0.5" data-icon="mdi:resize"></span>
+                            <div>
+                                <div class="text-sm font-semibold text-slate-800">Scalable Solutions</div>
+                                <div class="text-xs text-slate-400 mt-0.5">Grows with you</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICES SECTION ==================== -->
+    <section id="services" class="relative py-24 md:py-32 bg-slate-50/80 overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-sky-100 rounded-full blur-[100px] opacity-40"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border border-brand-200 rounded-full mb-5">
+                    <span class="iconify text-brand-600 text-sm" data-icon="mdi:star-four-points"></span>
+                    <span class="text-xs font-medium text-brand-700 tracking-wide uppercase">Our Expertise</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+                    What We Are <span class="gradient-text">Good At</span>
+                </h2>
+                <p class="mt-4 text-slate-500 leading-relaxed">
+                    End-to-end MES capabilities designed to transform your manufacturing operations from shop floor to top floor.
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                <!-- Service 1 -->
+                <div class="service-card card-glow group bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 reveal" style="transition-delay: 0.05s;">
+                    <div class="service-icon w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 mb-5">
+                        <span class="iconify text-white text-2xl" data-icon="mdi:code-tags"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 group-hover:text-brand-700 transition-colors">Custom MES Development</h3>
+                    <p class="mt-2 text-sm text-slate-400 leading-relaxed">Build MES solutions tailored to your unique manufacturing workflows and requirements.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card card-glow group bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 reveal" style="transition-delay: 0.1s;">
+                    <div class="service-icon w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 mb-5">
+                        <span class="iconify text-white text-2xl" data-icon="mdi:test-tube"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 group-hover:text-brand-700 transition-colors">Automated Testing</h3>
+                    <p class="mt-2 text-sm text-slate-400 leading-relaxed">Comprehensive automated tests for existing MES systems to ensure reliability and performance.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card card-glow group bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 reveal" style="transition-delay: 0.15s;">
+                    <div class="service-icon w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 mb-5">
+                        <span class="iconify text-white text-2xl" data-icon="mdi:connection"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 group-hover:text-brand-700 transition-colors">PLC, SCADA & ERP Integration</h3>
+                    <p class="mt-2 text-sm text-slate-400 leading-relaxed">Seamless integration between your MES and shop-floor equipment or enterprise systems.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card card-glow group bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 reveal" style="transition-delay: 0.2s;">
+                    <div class="service-icon w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 mb-5">
+                        <span class="iconify text-white text-2xl" data-icon="mdi:chart-timeline-variant-shimmer"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 group-hover:text-brand-700 transition-colors">Production Tracking & Reporting</h3>
+                    <p class="mt-2 text-sm text-slate-400 leading-relaxed">Real-time production monitoring with detailed reports and dashboards for informed decisions.</p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card card-glow group bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 reveal" style="transition-delay: 0.25s;">
+                    <div class="service-icon w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 mb-5">
+                        <span class="iconify text-white text-2xl" data-icon="mdi:qrcode-scan"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 group-hover:text-brand-700 transition-colors">Traceability & Quality Management</h3>
+                    <p class="mt-2 text-sm text-slate-400 leading-relaxed">Full traceability from raw materials to finished goods with integrated quality controls.</p>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card card-glow group bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 reveal" style="transition-delay: 0.3s;">
+                    <div class="service-icon w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 mb-5">
+                        <span class="iconify text-white text-2xl" data-icon="mdi:update"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 group-hover:text-brand-700 transition-colors">Legacy MES Modernization</h3>
+                    <p class="mt-2 text-sm text-slate-400 leading-relaxed">Transform outdated MES systems into modern, efficient platforms without losing critical data.</p>
+                </div>
+
+                <!-- Service 7 -->
+                <div class="service-card card-glow group bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 reveal" style="transition-delay: 0.35s;">
+                    <div class="service-icon w-14 h-14 rounded-xl bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 mb-5">
+                        <span class="iconify text-white text-2xl" data-icon="mdi:arrow-up-bold-circle"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 group-hover:text-brand-700 transition-colors">Existing MES Upgrades</h3>
+                    <p class="mt-2 text-sm text-slate-400 leading-relaxed">Upgrade and enhance your current MES with new features, better performance, and security.</p>
+                </div>
+
+                <!-- CTA Card -->
+                <div class="card-glow group bg-gradient-to-br from-brand-700 to-brand-900 rounded-2xl p-6 flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 hover:shadow-xl hover:shadow-brand-500/20 reveal" style="transition-delay: 0.4s;">
+                    <div>
+                        <span class="iconify text-sky-300 text-3xl mb-4" data-icon="mdi:arrow-right-circle-outline"></span>
+                        <h3 class="text-lg font-semibold text-white">Need something custom?</h3>
+                        <p class="mt-2 text-sm text-blue-200/80 leading-relaxed">Every manufacturing environment is unique. Let's discuss your specific needs.</p>
+                    </div>
+                    <a href="#contact" class="mt-5 inline-flex items-center gap-2 px-5 py-2.5 bg-white text-brand-700 text-sm font-semibold rounded-xl hover:bg-sky-50 transition-colors group-hover:gap-3">
+                        Talk to Us
+                        <span class="iconify" data-icon="mdi:arrow-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== WHAT MAKES US STAND OUT ==================== -->
+    <section id="standout" class="relative py-24 md:py-32 bg-white overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-50 rounded-full blur-[150px] opacity-40"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border border-brand-200 rounded-full mb-5">
+                    <span class="iconify text-brand-600 text-sm" data-icon="mdi:diamond-stone"></span>
+                    <span class="text-xs font-medium text-brand-700 tracking-wide uppercase">Our Differentiator</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+                    What Makes Us <span class="gradient-text">Stand Out</span>
+                </h2>
+                <p class="mt-4 text-slate-500 leading-relaxed">
+                    We don't just write code — we understand manufacturing, and that changes everything.
+                </p>
+            </div>
+
+            <!-- Three Pillars -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <!-- Pillar 1 -->
+                <div class="reveal group" style="transition-delay: 0.1s;">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 h-full">
+                        <div class="text-5xl font-extrabold standout-number mb-4">01</div>
+                        <div class="w-12 h-1 bg-gradient-to-r from-brand-600 to-sky-400 rounded-full mb-5"></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Deep Understanding</h3>
+                        <p class="text-slate-500 leading-relaxed">We take the time to truly understand our clients' needs before proposing any solution. We listen first, then build.</p>
+                        <div class="mt-5 flex items-center gap-2 text-brand-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="iconify" data-icon="mdi:check-decagram"></span>
+                            Empathy-driven approach
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="reveal group" style="transition-delay: 0.2s;">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 h-full">
+                        <div class="text-5xl font-extrabold standout-number mb-4">02</div>
+                        <div class="w-12 h-1 bg-gradient-to-r from-brand-600 to-sky-400 rounded-full mb-5"></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Right Solutions</h3>
+                        <p class="text-slate-500 leading-relaxed">No one-size-fits-all. We deliver solutions that actually fit your operations, not just what's trendy or convenient.</p>
+                        <div class="mt-5 flex items-center gap-2 text-brand-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="iconify" data-icon="mdi:check-decagram"></span>
+                            Precision-engineered
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="reveal group" style="transition-delay: 0.3s;">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-100 hover:border-brand-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 h-full">
+                        <div class="text-5xl font-extrabold standout-number mb-4">03</div>
+                        <div class="w-12 h-1 bg-gradient-to-r from-brand-600 to-sky-400 rounded-full mb-5"></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Reliability & Dependability</h3>
+                        <p class="text-slate-500 leading-relaxed">When we commit, we deliver. Our clients trust us because we consistently meet expectations and deadlines.</p>
+                        <div class="mt-5 flex items-center gap-2 text-brand-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="iconify" data-icon="mdi:check-decagram"></span>
+                            Trust through consistency
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Storytelling Paragraph -->
+            <div class="reveal max-w-3xl mx-auto">
+                <div class="bg-gradient-to-br from-brand-50 via-white to-sky-50 rounded-2xl p-8 md:p-10 border border-brand-100 relative">
+                    <span class="iconify text-brand-200 text-5xl absolute top-6 left-6" data-icon="mdi:format-quote-open"></span>
+                    <div class="relative z-10">
+                        <p class="text-slate-600 leading-relaxed text-[15px] pl-2">
+                            Behind every successful project is <strong class="text-slate-800">organization and discipline</strong>. We maintain detailed tickets, comprehensive design documents, and clear project roadmaps. Every requirement is documented, every decision is tracked, and every change is versioned. This isn't bureaucracy — it's how we ensure nothing falls through the cracks. When a client revisits a project six months later, they'll find everything they need: clear documentation, well-structured code, and a team that remembers exactly why each decision was made. <strong class="text-slate-800">This is what reliability looks like in practice.</strong>
+                        </p>
+                        <div class="mt-6 flex items-center gap-4 pl-2">
+                            <div class="flex items-center gap-2 text-xs text-slate-400">
+                                <span class="iconify text-brand-400" data-icon="mdi:ticket-outline"></span>
+                                Tickets
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-slate-400">
+                                <span class="iconify text-brand-400" data-icon="mdi:file-document-outline"></span>
+                                Design Docs
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-slate-400">
+                                <span class="iconify text-brand-400" data-icon="mdi:source-branch"></span>
+                                Version Control
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-slate-400">
+                                <span class="iconify text-brand-400" data-icon="mdi:road-variant"></span>
+                                Roadmaps
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MISSION & VISION ==================== -->
+    <section id="mission" class="relative py-24 md:py-32 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-950 via-brand-900 to-slate-900"></div>
+        <div class="absolute inset-0 hero-grid opacity-20"></div>
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-600/20 rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-500/10 rounded-full blur-[120px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/10 rounded-full mb-5">
+                    <span class="iconify text-sky-400 text-sm" data-icon="mdi:compass"></span>
+                    <span class="text-xs font-medium text-sky-300 tracking-wide uppercase">Purpose & Direction</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                    Mission & <span class="text-sky-400">Vision</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Mission -->
+                <div class="reveal-left">
+                    <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-white/10 hover:border-sky-400/30 transition-all duration-500 h-full group">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center shadow-lg shadow-brand-500/20 mb-6 group-hover:scale-110 transition-transform duration-500">
+                            <span class="iconify text-white text-3xl" data-icon="mdi:target"></span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Our Mission</h3>
+                        <p class="text-blue-200/70 leading-relaxed text-lg">
+                            "Our mission is to deliver MES solutions that are simple to use, easy to integrate, and aligned with real manufacturing workflows."
+                        </p>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-sky-300 border border-white/10">Simple to Use</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-sky-300 border border-white/10">Easy to Integrate</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-sky-300 border border-white/10">Real Workflows</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision -->
+                <div class="reveal-right">
+                    <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-white/10 hover:border-sky-400/30 transition-all duration-500 h-full group">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500 to-brand-600 flex items-center justify-center shadow-lg shadow-sky-500/20 mb-6 group-hover:scale-110 transition-transform duration-500">
+                            <span class="iconify text-white text-3xl" data-icon="mdi:eye-outline"></span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Our Vision</h3>
+                        <p class="text-blue-200/70 leading-relaxed text-lg">
+                            "To help our clients build reliable and high-quality products using software solutions that are simple and easy to manage."
+                        </p>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-sky-300 border border-white/10">Reliable Products</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-sky-300 border border-white/10">High Quality</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-sky-300 border border-white/10">Easy to Manage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CLIENTS SECTION ==================== -->
+    <section id="clients" class="relative py-24 md:py-32 bg-white overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-200 to-transparent"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border border-brand-200 rounded-full mb-5">
+                    <span class="iconify text-brand-600 text-sm" data-icon="mdi:domain"></span>
+                    <span class="text-xs font-medium text-brand-700 tracking-wide uppercase">Our Clients</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+                    Trusted by <span class="gradient-text">Manufacturing Leaders</span>
+                </h2>
+                <p class="mt-4 text-slate-500 leading-relaxed">
+                    We serve manufacturing companies across industries that need better production visibility, control, and quality management.
+                </p>
+            </div>
+
+            <!-- Industry Tags -->
+            <div class="reveal flex flex-wrap justify-center gap-3 mb-12">
+                <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm text-slate-600 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 transition-all duration-300 cursor-default">
+                    <span class="iconify text-brand-500" data-icon="mdi:car"></span> Automotive
+                </span>
+                <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm text-slate-600 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 transition-all duration-300 cursor-default">
+                    <span class="iconify text-brand-500" data-icon="mdi:airplane"></span> Aerospace
+                </span>
+                <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm text-slate-600 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 transition-all duration-300 cursor-default">
+                    <span class="iconify text-brand-500" data-icon="mdi:medical-bag"></span> Medical Devices
+                </span>
+                <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm text-slate-600 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 transition-all duration-300 cursor-default">
+                    <span class="iconify text-brand-500" data-icon="mdi:chip"></span> Electronics
+                </span>
+                <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm text-slate-600 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 transition-all duration-300 cursor-default">
+                    <span class="iconify text-brand-500" data-icon="mdi:food-apple"></span> Food & Beverage
+                </span>
+                <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm text-slate-600 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 transition-all duration-300 cursor-default">
+                    <span class="iconify text-brand-500" data-icon="mdi:pill"></span> Pharmaceuticals
+                </span>
+            </div>
+
+            <!-- Logo Marquee -->
+            <div class="reveal overflow-hidden relative">
+                <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
+                <div class="flex marquee-track">
+                    <!-- Repeat set 1 -->
+                    <div class="flex items-center gap-16 px-8 shrink-0">
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 1</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 2</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 3</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 4</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 5</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 6</div>
+                    </div>
+                    <!-- Repeat set 2 (for seamless loop) -->
+                    <div class="flex items-center gap-16 px-8 shrink-0">
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 1</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 2</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 3</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 4</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 5</div>
+                        <div class="w-36 h-20 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 text-xs font-medium uppercase tracking-wider">Client 6</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="reveal mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-brand-50/50 rounded-2xl border border-brand-100">
+                    <div class="text-3xl font-extrabold gradient-text">50+</div>
+                    <div class="text-sm text-slate-500 mt-1">MES Implementations</div>
+                </div>
+                <div class="text-center p-6 bg-brand-50/50 rounded-2xl border border-brand-100">
+                    <div class="text-3xl font-extrabold gradient-text">30+</div>
+                    <div class="text-sm text-slate-500 mt-1">Manufacturing Clients</div>
+                </div>
+                <div class="text-center p-6 bg-brand-50/50 rounded-2xl border border-brand-100">
+                    <div class="text-3xl font-extrabold gradient-text">6+</div>
+                    <div class="text-sm text-slate-500 mt-1">Industries Served</div>
+                </div>
+                <div class="text-center p-6 bg-brand-50/50 rounded-2xl border border-brand-100">
+                    <div class="text-3xl font-extrabold gradient-text">100%</div>
+                    <div class="text-sm text-slate-500 mt-1">Project Delivery Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact" class="relative py-24 md:py-32 bg-slate-50/80 overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-100 rounded-full blur-[120px] opacity-30"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-100 rounded-full blur-[100px] opacity-30"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border border-brand-200 rounded-full mb-5">
+                    <span class="iconify text-brand-600 text-sm" data-icon="mdi:message-text"></span>
+                    <span class="text-xs font-medium text-brand-700 tracking-wide uppercase">Get In Touch</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+                    Let's Build Something <span class="gradient-text">Great Together</span>
+                </h2>
+                <p class="mt-4 text-slate-500 leading-relaxed">
+                    Have a project in mind? We'd love to hear about it. Reach out and we'll get back to you within 24 hours.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-10">
+                <!-- Contact Info -->
+                <div class="lg:col-span-2 reveal-left space-y-6">
+                    <!-- Email Card -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center shrink-0">
+                                <span class="iconify text-brand-600 text-xl" data-icon="mdi:email-outline"></span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-800">Email Us</h4>
+                                <a href="mailto:hello@raamatech.com" class="mt-1 text-brand-600 font-medium text-sm hover:text-brand-700 transition-colors">hello@raamatech.com</a>
+                                <p class="mt-2 text-xs text-slate-400 flex items-center gap-1">
+                                    <span class="iconify text-green-500" data-icon="mdi:clock-fast"></span>
+                                    You will hear back from us within 24 hours
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Response Time Card -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center shrink-0">
+                                <span class="iconify text-green-600 text-xl" data-icon="mdi:lightning-bolt"></span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-800">Quick Response</h4>
+                                <p class="mt-1 text-sm text-slate-500">We prioritize every inquiry and ensure a prompt, meaningful response.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- What to Expect -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 hover:border-brand-200 transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center shrink-0">
+                                <span class="iconify text-sky-600 text-xl" data-icon="mdi:clipboard-check-outline"></span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-800">What Happens Next?</h4>
+                                <ol class="mt-2 space-y-1.5 text-sm text-slate-500">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 font-semibold shrink-0">1.</span>
+                                        We review your inquiry
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 font-semibold shrink-0">2.</span>
+                                        Schedule a discovery call
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 font-semibold shrink-0">3.</span>
+                                        Share a tailored proposal
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-3 reveal-right">
+                    <form id="contactForm" class="bg-white rounded-2xl p-8 md:p-10 border border-slate-100 shadow-sm">
+                        <div class="grid sm:grid-cols-2 gap-5 mb-5">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-700 mb-2">Full Name <span class="text-red-400">*</span></label>
+                                <input type="text" id="name" name="name" required placeholder="John Doe"
+                                    class="form-input w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-400 focus:bg-white transition-all duration-300">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email Address <span class="text-red-400">*</span></label>
+                                <input type="email" id="email" name="email" required placeholder="john@company.com"
+                                    class="form-input w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-400 focus:bg-white transition-all duration-300">
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <label for="subject" class="block text-sm font-medium text-slate-700 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="MES Implementation Inquiry"
+                                class="form-input w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-400 focus:bg-white transition-all duration-300">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-slate-700 mb-2">Message <span class="text-red-400">*</span></label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Tell us about your project, challenges, or requirements..."
+                                class="form-input w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-400 focus:bg-white transition-all duration-300 resize-none"></textarea>
+                        </div>
+                        <button type="submit" id="submitBtn"
+                            class="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-brand-700 to-brand-600 text-white font-semibold rounded-xl hover:from-brand-600 hover:to-sky-600 transition-all duration-300 shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5">
+                            <span id="btnText">Send Message</span>
+                            <span id="btnIcon" class="iconify text-lg group-hover:translate-x-1 transition-transform" data-icon="mdi:send"></span>
+                            <span id="btnSpinner" class="hidden">
+                                <span class="iconify animate-spin text-lg" data-icon="mdi:loading"></span>
+                            </span>
+                        </button>
+                        <!-- Success Message -->
+                        <div id="formSuccess" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
+                            <span class="iconify text-green-500 text-xl" data-icon="mdi:check-circle"></span>
+                            <span class="text-sm text-green-700 font-medium">Thank you! Your message has been sent. We'll get back to you within 24 hours.</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Google Map Placeholder -->
+            <div class="reveal mt-12 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.0360995752!2d-74.30932647816664!3d40.69753996510887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                    width="100%" height="320" style="border:0; filter: grayscale(80%) contrast(1.1);" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" class="w-full">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA BANNER ==================== -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-700 via-brand-600 to-sky-600"></div>
+        <div class="absolute inset-0 hero-grid opacity-10"></div>
+        <div class="absolute -top-20 -right-20 w-80 h-80 bg-white/5 rounded-full"></div>
+        <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-white/5 rounded-full"></div>
+
+        <div class="relative max-w-4xl mx-auto px-6 text-center reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                Ready to Transform Your Manufacturing?
+            </h2>
+            <p class="mt-4 text-lg text-blue-100/80 max-w-2xl mx-auto">
+                Let's discuss how RaamaTech can help you implement, integrate, or upgrade your MES solution.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#contact" class="group inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-700 font-bold rounded-xl hover:bg-sky-50 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                    Start a Conversation
+                    <span class="iconify text-lg group-hover:translate-x-1 transition-transform" data-icon="mdi:arrow-right"></span>
+                </a>
+                <a href="mailto:hello@raamatech.com" class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 hover:-translate-y-1">
+                    <span class="iconify text-lg" data-icon="mdi:email-outline"></span>
+                    hello@raamatech.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-brand-950 text-white">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <a href="#home" class="flex items-center gap-2.5 mb-5">
+                        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-sky-500 flex items-center justify-center">
+                            <span class="iconify text-white text-lg" data-icon="mdi:factory"></span>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight">Raama<span class="text-sky-400">Tech</span></span>
+                    </a>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                        Reliable MES solutions for modern manufacturing. Building software that works on the shop floor.
+                    </p>
+                    <!-- Social Links -->
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-600 transition-all duration-300" aria-label="LinkedIn">
+                            <span class="iconify text-lg" data-icon="mdi:linkedin"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-600 transition-all duration-300" aria-label="Twitter">
+                            <span class="iconify text-lg" data-icon="mdi:twitter"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-600 transition-all duration-300" aria-label="GitHub">
+                            <span class="iconify text-lg" data-icon="mdi:github"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-600 hover:border-brand-600 transition-all duration-300" aria-label="YouTube">
+                            <span class="iconify text-lg" data-icon="mdi:youtube"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-5">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-sm text-slate-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-sm text-slate-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#services" class="text-sm text-slate-400 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#standout" class="text-sm text-slate-400 hover:text-white transition-colors">Why Us</a></li>
+                        <li><a href="#mission" class="text-sm text-slate-400 hover:text-white transition-colors">Mission & Vision</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-5">Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="text-sm text-slate-400 hover:text-white transition-colors">Custom MES Development</a></li>
+                        <li><a href="#services" class="text-sm text-slate-400 hover:text-white transition-colors">PLC & SCADA Integration</a></li>
+                        <li><a href="#services" class="text-sm text-slate-400 hover:text-white transition-colors">Production Tracking</a></li>
+                        <li><a href="#services" class="text-sm text-slate-400 hover:text-white transition-colors">Legacy Modernization</a></li>
+                        <li><a href="#services" class="text-sm text-slate-400 hover:text-white transition-colors">Automated Testing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-5">Contact</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="iconify text-brand-400 text-lg mt-0.5" data-icon="mdi:email-outline"></span>
+                            <a href="mailto:hello@raamatech.com" class="text-sm text-slate-400 hover:text-white transition-colors">hello@raamatech.com</a>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="iconify text-brand-400 text-lg mt-0.5" data-icon="mdi:clock-outline"></span>
+                            <span class="text-sm text-slate-400">Mon – Fri: 9AM – 6PM</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="iconify text-brand-400 text-lg mt-0.5" data-icon="mdi:map-marker-outline"></span>
+                            <span class="text-sm text-slate-400">Serving clients globally</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-slate-500">
+                    © 2025 RaamaTech. All rights reserved.
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-xs text-slate-500 hover:text-slate-300 transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-xs text-slate-500 hover:text-slate-300 transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== WHATSAPP FLOATING BUTTON ==================== -->
+    <a href="https://wa.me/1234567890?text=Hi%20RaamaTech%2C%20I%27d%20like%20to%20know%20more%20about%20your%20MES%20solutions." target="_blank" rel="noopener"
+        class="whatsapp-pulse fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:scale-110 hover:shadow-xl hover:shadow-green-500/40 transition-all duration-300"
+        aria-label="Chat on WhatsApp">
+        <span class="iconify text-white text-3xl" data-icon="mdi:whatsapp"></span>
+    </a>
+
+    <!-- ==================== BACK TO TOP BUTTON ==================== -->
+    <button id="backToTop"
+        class="fixed bottom-6 left-6 z-50 w-11 h-11 bg-white border border-slate-200 rounded-full flex items-center justify-center shadow-lg text-slate-500 hover:text-brand-600 hover:border-brand-300 hover:shadow-brand-500/10 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none"
+        aria-label="Back to top">
+        <span class="iconify text-xl" data-icon="mdi:chevron-up"></span>
+    </button>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ===== Mobile Menu Toggle =====
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        let isMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.setAttribute('data-icon', isMenuOpen ? 'mdi:close' : 'mdi:menu');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-icon', 'mdi:menu');
+            });
+        });
+
+        // ===== Sticky Navbar Shadow on Scroll =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add('border-slate-100', 'shadow-sm');
+                navbar.classList.remove('border-transparent');
+            } else {
+                navbar.classList.remove('border-slate-100', 'shadow-sm');
+                navbar.classList.add('border-transparent');
+            }
+        });
+
+        // ===== Active Nav Link on Scroll =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveLink() {
+            const scrollPos = window.scrollY + 100;
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                const id = section.getAttribute('id');
+                if (scrollPos >= top && scrollPos < top + height) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+        window.addEventListener('scroll', updateActiveLink);
+
+        // ===== Scroll Reveal Animations =====
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+        function checkReveal() {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                const delay = el.style.transitionDelay || '0s';
+                if (top < windowHeight - 80) {
+                    el.style.transitionDelay = delay;
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', checkReveal);
+
+        // ===== Back to Top Button =====
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                backToTop.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                backToTop.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                backToTop.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                backToTop.classList.remove('opacity-100', 'translate-y-0');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== Contact Form Handling =====
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const formSuccess = document.getElementById('formSuccess');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Show loading state
+            btnText.textContent = 'Sending...';
+            btnIcon.classList.add('hidden');
+            btnSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75');
+
+            // Simulate form submission
+            setTimeout(() => {
+                // Reset button
+                btnText.textContent = 'Send Message';
+                btnIcon.classList.remove('hidden');
+                btnSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-75');
+
+                // Show success
+                formSuccess.classList.remove('hidden');
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                // Reset form
+                contactForm.reset();
+
+                // Hide success after 5s
+                setTimeout(() => {
+                    formSuccess.classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        });
+
+        // ===== Smooth scroll offset for fixed navbar =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const offset = 80; // navbar height + buffer
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
